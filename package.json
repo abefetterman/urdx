@@ -20,5 +20,8 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1"
+  },
+  "dependencies": {
+    "xmlbuilder": "^9.0.4"
   }
 }
