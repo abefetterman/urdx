@@ -1,8 +1,6 @@
 "use strict";
 
 var urdx = require('../src');
-// import { h, render } from 'preact';
-
 
 var MyTitle = urdx.createClass({
   render: function render() {
@@ -12,15 +10,11 @@ var MyTitle = urdx.createClass({
       "h1",
       null,
       urdx.createElement("p", { message: attributes.message }),
-      urdx.createElement("p", { message: "how are you" })
+      urdx.createElement("p", { message: 2 })
     ), urdx.createElement("h2", { message: "thanks" })];
   }
 });
 
-var yay = urdx.createElement(
-  "robot",
-  null,
-  urdx.createElement(MyTitle, { message: "hi Urdx" })
-);
+var yay = urdx.createElement(MyTitle, { message: "hi Urdx" });
 
-console.log(urdx.renderXML(yay));
+console.log(urdx.renderRobot(yay, { sassy: true }));

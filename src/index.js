@@ -1,60 +1,6 @@
 var builder = require('xmlbuilder');
 
-class UrdxDOMComponent {
-    constructor(element) {
-        this._element = element;
-    }
-
-    mountComponent(container) {
-        const domElement = this._element.type;
-        const { attributes, children } = this._element.props;
-
-        this._parent = container;
-
-        const mountedComponent = container.ele(domElement, attributes)
-        if (children && (typeof children.map === 'function')) {
-          children.map((child) => {
-            const childComponent = instantiateUrdxComponent(child)
-            return childComponent.mountComponent(mountedComponent)
-          })
-          return mountedComponent
-        }
-        return mountedComponent
-    }
-}
-
-class UrdxCompositeComponentWrapper {
-    constructor(element) {
-        this._element = element;
-    }
-
-    mountComponent(container) {
-      const Component = this._element.type;
-      const componentInstance = new Component(this._element.props);
-      this._instance = componentInstance;
-      const renderResult = componentInstance.render();
-      if (renderResult && (typeof renderResult.map === 'function')) {
-        renderResult.map((child) => {
-          const childComponent = instantiateUrdxComponent(child);
-          return childComponent.mountComponent(container);
-        })
-        return container;
-      }
-
-      const childComponent = instantiateUrdxComponent(renderResult);
-      return childComponent.mountComponent(container);
-    }
-}
-
-function instantiateUrdxComponent(element) {
-    if (typeof element.type === 'string') {
-        return new UrdxDOMComponent(element);
-    } else if (typeof element.type === 'function') {
-        return new UrdxCompositeComponentWrapper(element);
-    } else {
-      throw new Error('unknown element type for element: '+JSON.stringify(element))
-    }
-}
+var { instantiateUrdxComponent } = require('./Components');
 
 const TopLevelWrapper = function(props) {
     this.props = props;
@@ -66,6 +12,7 @@ TopLevelWrapper.prototype.render = function() {
 
 const Urdx = {
 		createElement(type, attributes, ...args) {
+      // not sure best place to clean up, but XML can't handle null / undefined
       if (attributes && (typeof attributes === 'object')) {
         Object.keys(attributes).forEach((key) => {
           if (attributes[key] == null) delete attributes[key];
@@ -84,28 +31,32 @@ const Urdx = {
       return element;
     },
 
-    createClass(spec) {
+    createClass(spec, meta) {
       function Constructor(props) {
           this.props = props;
       }
 
       Constructor.prototype = Object.assign(Constructor.prototype, spec);
 
+      if (meta) Constructor.meta = meta;
+
       return Constructor;
     },
 
-    render(element, container) {
-      const wrapperElement =
-          this.createElement(TopLevelWrapper, element);
-
-      const componentInstance =
-          new UrdxCompositeComponentWrapper(wrapperElement);
-
-      return componentInstance.mountComponent(container);
-    },
-
-    renderXML(rootElement) {
-      return this.render(rootElement, builder.create('root')).end({pretty: true})
+    renderRobot(element, attributes) {
+      let root = builder.create('robot');
+      if (element && (typeof element.forEach === 'function')) {
+        renderChildren(element, root, null);
+      } else {
+        const instance = instantiateUrdxComponent(element);
+        instance.mountComponent(root);
+      }
+      if (attributes && (typeof attributes === 'object')) {
+        Object.keys(attributes).forEach((key) => {
+          root.att(key, attributes[key]);
+        })
+      }
+      return root.end({pretty: true})
     }
 };
 
