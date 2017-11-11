@@ -28,13 +28,13 @@ class UrdxCompositeComponentWrapper {
     }
 
     mountComponent(container) {
-        const Component = this._element.type;
-        const componentInstance = new Component(this._element.props);
-        this._instance = componentInstance;
-        const renderedElement = componentInstance.render();
-        const child = instantiateUrdxComponent(renderedElement);
+      const Component = this._element.type;
+      const componentInstance = new Component(this._element.props);
+      this._instance = componentInstance;
+      const renderedElement = componentInstance.render();
+      const child = instantiateUrdxComponent(renderedElement);
 
-        return child.mountComponent(container);
+      return child.mountComponent(container);
     }
 }
 
@@ -58,37 +58,37 @@ TopLevelWrapper.prototype.render = function() {
 
 const Urdx = {
 		createElement(type, props, children) {
-        const element = {
-            type: type,
-            element: 'hi',
-            props: props || {}
-        };
+      const element = {
+          type: type,
+          element: 'hi',
+          props: props || {}
+      };
 
-        if (children) {
-            element.props.children = children;
-        }
+      if (children) {
+          element.props.children = children;
+      }
 
-        return element;
+      return element;
     },
 
     createClass(spec) {
-        function Constructor(props) {
-            this.props = props;
-        }
+      function Constructor(props) {
+          this.props = props;
+      }
 
-        Constructor.prototype = Object.assign(Constructor.prototype, spec);
+      Constructor.prototype = Object.assign(Constructor.prototype, spec);
 
-        return Constructor;
+      return Constructor;
     },
 
     render(element, container) {
-        const wrapperElement =
-            this.createElement(TopLevelWrapper, element);
+      const wrapperElement =
+          this.createElement(TopLevelWrapper, element);
 
-        const componentInstance =
-            new UrdxCompositeComponentWrapper(wrapperElement);
+      const componentInstance =
+          new UrdxCompositeComponentWrapper(wrapperElement);
 
-        return componentInstance.mountComponent(container);
+      return componentInstance.mountComponent(container);
     },
 
     renderXML(rootElement) {
