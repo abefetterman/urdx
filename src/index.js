@@ -7,16 +7,19 @@ class UrdxDOMComponent {
 
     mountComponent(container) {
         const domElement = this._element.type;
-        const child = this._element.props.children;
+        const children = this._element.props.children;
         const propClone = Object.assign({}, this._element.props);
         delete propClone['children'];
 
         this._parent = container;
 
         const mountedComponent = container.ele(domElement, propClone)
-        if (child) {
-          const childComponent = instantiateUrdxComponent(child)
-          return childComponent.mountComponent(mountedComponent)
+        if (children && (typeof children.map === 'function')) {
+          children.map((child) => {
+            const childComponent = instantiateUrdxComponent(child)
+            return childComponent.mountComponent(mountedComponent)
+          })
+          return mountedComponent
         }
         return mountedComponent
     }
@@ -31,10 +34,17 @@ class UrdxCompositeComponentWrapper {
       const Component = this._element.type;
       const componentInstance = new Component(this._element.props);
       this._instance = componentInstance;
-      const renderedElement = componentInstance.render();
-      const child = instantiateUrdxComponent(renderedElement);
+      const renderResult = componentInstance.render();
+      if (renderResult && (typeof renderResult.map === 'function')) {
+        renderResult.map((child) => {
+          const childComponent = instantiateUrdxComponent(child);
+          return childComponent.mountComponent(container);
+        })
+        return container;
+      }
 
-      return child.mountComponent(container);
+      const childComponent = instantiateUrdxComponent(renderResult);
+      return childComponent.mountComponent(container);
     }
 }
 
@@ -57,16 +67,15 @@ TopLevelWrapper.prototype.render = function() {
 };
 
 const Urdx = {
-		createElement(type, props, children) {
+		createElement(type, props, ...args) {
       const element = {
           type: type,
           element: 'hi',
           props: props || {}
       };
 
-      if (children) {
-          element.props.children = children;
-      }
+      element.props.children = (args && args.length) ? [].concat(...args) : null;
+
 
       return element;
     },

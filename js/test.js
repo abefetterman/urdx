@@ -6,11 +6,12 @@ var urdx = require('../src');
 
 var MyTitle = urdx.createClass({
   render: function render() {
-    return urdx.createElement(
+    return [urdx.createElement(
       "h1",
       null,
-      urdx.createElement("p", { message: this.props.message })
-    );
+      urdx.createElement("p", { message: this.props.message }),
+      urdx.createElement("p", { message: "how are you" })
+    ), urdx.createElement("h2", { message: "thanks" })];
   }
 });
 
