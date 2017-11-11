@@ -1,14 +1,6 @@
 var builder = require('xmlbuilder');
 
-var { instantiateUrdxComponent } = require('./Components');
-
-const TopLevelWrapper = function(props) {
-    this.props = props;
-};
-
-TopLevelWrapper.prototype.render = function() {
-    return this.props.attributes;
-};
+var { instantiateUrdxComponent, mountChildren } = require('./Components');
 
 const Urdx = {
 		createElement(type, attributes, ...args) {
