@@ -4,8 +4,9 @@ var urdx = require('../src');
 
 const MyTitle = urdx.createClass({
     render() {
+      const { attributes } = this.props;
       return [
-        (<h1><p message={this.props.message} /><p message="how are you" /></h1>),
+        (<h1><p message={attributes.message} /><p message="how are you" /></h1>),
         (<h2 message="thanks" />),
       ];
     }

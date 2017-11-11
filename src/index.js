@@ -7,13 +7,11 @@ class UrdxDOMComponent {
 
     mountComponent(container) {
         const domElement = this._element.type;
-        const children = this._element.props.children;
-        const propClone = Object.assign({}, this._element.props);
-        delete propClone['children'];
+        const { attributes, children } = this._element.props;
 
         this._parent = container;
 
-        const mountedComponent = container.ele(domElement, propClone)
+        const mountedComponent = container.ele(domElement, attributes)
         if (children && (typeof children.map === 'function')) {
           children.map((child) => {
             const childComponent = instantiateUrdxComponent(child)
@@ -63,19 +61,25 @@ const TopLevelWrapper = function(props) {
 };
 
 TopLevelWrapper.prototype.render = function() {
-    return this.props;
+    return this.props.attributes;
 };
 
 const Urdx = {
-		createElement(type, props, ...args) {
+		createElement(type, attributes, ...args) {
+      if (attributes && (typeof attributes === 'object')) {
+        Object.keys(attributes).forEach((key) => {
+          if (attributes[key] == null) delete attributes[key];
+        })
+      }
+
+      const props = {
+        attributes,
+        children: (args && args.length) ? [].concat(...args) : null,
+      }
       const element = {
           type: type,
-          element: 'hi',
-          props: props || {}
+          props,
       };
-
-      element.props.children = (args && args.length) ? [].concat(...args) : null;
-
 
       return element;
     },
