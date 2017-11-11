@@ -2,12 +2,16 @@
 function mountChildren(children, parentDOM, parent) {
   if (children && (typeof children.map === 'function')) {
     children.map((child) => {
-      child.props.parent = parent;
+      child.props.parent = getDetailsForChild(parent);
       const childComponent = instantiateUrdxComponent(child);
       return childComponent.mountComponent(parentDOM);
     });
   }
   return parentDOM;
+}
+
+function getDetailsForChild(element) {
+  return Object.assign({}, element.props.parent, element.props.attributes);
 }
 
 class UrdxDOMComponent {
