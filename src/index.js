@@ -1,6 +1,6 @@
 var builder = require('xmlbuilder');
 
-var { instantiateUrdxComponent, mountChildren } = require('./Components');
+var { instantiateUrdxComponent, mountChildren } = require('./DOMComponents');
 
 const Urdx = {
 		createElement(type, attributes, ...args) {
@@ -23,14 +23,12 @@ const Urdx = {
       return element;
     },
 
-    createClass(spec, meta) {
+    createClass(spec) {
       function Constructor(props) {
           this.props = props;
       }
 
       Constructor.prototype = Object.assign(Constructor.prototype, spec);
-
-      if (meta) Constructor.meta = meta;
 
       return Constructor;
     },

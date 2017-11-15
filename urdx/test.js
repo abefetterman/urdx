@@ -1,15 +1,16 @@
-var urdx = require('../src');
+var urdx = require('../lib');
+import Component from '../lib/Component';
 
 
-const MyTitle = urdx.createClass({
-    render() {
-      const { attributes } = this.props;
-      return [
-        (<h1><p message={attributes.message} /><p message={2} /></h1>),
-        (<h2 message="thanks" />),
-      ];
-    }
-});
+class MyTitle extends Component {
+  render() {
+    const { attributes } = this.props;
+    return [
+      (<h1><p message={attributes.message} /><p message={2} /></h1>),
+      (<h2 message="thanks" />),
+    ];
+  }
+};
 
 const yay = (
   <MyTitle message="hi Urdx" />

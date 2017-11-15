@@ -1,8 +1,8 @@
 // mounts children to parentDOM, adds parent to props
-function mountChildren(children, parentDOM, parent) {
+function mountChildren(children, parentDOM, parentElement) {
   if (children && (typeof children.map === 'function')) {
     children.map((child) => {
-      child.props.parent = getDetailsForChild(parent);
+      child.props.parent = getDetailsForChild(parentElement);
       const childComponent = instantiateUrdxComponent(child);
       return childComponent.mountComponent(parentDOM);
     });

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "buildLib": "babel src -d lib",
     "build": "babel urdx -d js"
   },
   "repository": {
