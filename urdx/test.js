@@ -1,19 +1,28 @@
 var urdx = require('../lib');
 import Component from '../lib/Component';
+import LinkComponent from '../lib/LinkComponent';
 
 
-class MyTitle extends Component {
-  render() {
+class Cylinder extends LinkComponent {
+  renderLink() {
     const { attributes } = this.props;
-    return [
-      (<h1><p message={attributes.message} /><p message={2} /></h1>),
-      (<h2 message="thanks" />),
-    ];
+    const { length, radius, name } = attributes;
+    return (
+      <link name={name}>
+        <visual>
+          <geometry>
+            <cylinder length={length} radius={radius} />
+          </geometry>
+        </visual>
+      </link>
+    );
   }
 };
 
-const yay = (
-  <MyTitle message="hi Urdx" />
+const robot = (
+  <Cylinder name="base_link" length={0.6} radius={0.2} >
+    <Cylinder name="new_link" length={0.4} radius={0.1} />
+  </Cylinder>
 );
 
-console.log(urdx.renderRobot(yay, { sassy: true }));
+console.log(urdx.renderRobot(robot, { name: "myfirst" }));

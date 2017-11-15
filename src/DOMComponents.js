@@ -2,9 +2,13 @@
 function mountChildren(children, parentDOM, parentElement) {
   if (children && (typeof children.map === 'function')) {
     children.map((child) => {
-      child.props.parent = getDetailsForChild(parentElement);
-      const childComponent = instantiateUrdxComponent(child);
-      return childComponent.mountComponent(parentDOM);
+      if (child) {
+        child.props.parent = getDetailsForChild(parentElement);
+        const childComponent = instantiateUrdxComponent(child);
+        return childComponent.mountComponent(parentDOM);
+      } else {
+        console.log('no child: '+JSON.stringify(child));
+      }
     });
   }
   return parentDOM;
@@ -47,9 +51,12 @@ class UrdxCompositeComponentWrapper {
       if (renderResult && (typeof renderResult.map === 'function')) {
         return mountChildren(renderResult, container, this._element);
       }
-
-      const childComponent = instantiateUrdxComponent(renderResult);
-      return childComponent.mountComponent(container);
+      if (renderResult && renderResult.type) {
+        const childComponent = instantiateUrdxComponent(renderResult);
+        return childComponent.mountComponent(container);
+      }
+      console.log('No result: '+JSON.stringify(renderResult));
+      return container;
     }
 }
 

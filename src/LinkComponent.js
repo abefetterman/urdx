@@ -20,11 +20,13 @@ extend(LinkComponent.prototype, {
 
 	render() {
 		const { children } = this.props;
-		return [
-			renderLink(),
-			renderJoint(),
-			...children,
-		]
+		const result = [];
+		const link = this.renderLink();
+		if (link) result.push(link);
+		const joint = this.renderJoint();
+		if (joint) result.push(joint);
+		if (children) result.push(...children);
+		return result;
 	}
 
 });
