@@ -6,9 +6,9 @@ var _Component = require('../lib/Component');
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _LinkComponent2 = require('../lib/LinkComponent');
+var _LinkComponent3 = require('../lib/LinkComponent');
 
-var _LinkComponent3 = _interopRequireDefault(_LinkComponent2);
+var _LinkComponent4 = _interopRequireDefault(_LinkComponent3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54,14 +54,72 @@ var Cylinder = function (_LinkComponent) {
   }]);
 
   return Cylinder;
-}(_LinkComponent3.default);
+}(_LinkComponent4.default);
 
 ;
+
+var Box = function (_LinkComponent2) {
+  _inherits(Box, _LinkComponent2);
+
+  function Box() {
+    _classCallCheck(this, Box);
+
+    return _possibleConstructorReturn(this, (Box.__proto__ || Object.getPrototypeOf(Box)).apply(this, arguments));
+  }
+
+  _createClass(Box, [{
+    key: 'renderLink',
+    value: function renderLink() {
+      var attributes = this.props.attributes;
+      var size = attributes.size,
+          name = attributes.name;
+
+      return urdx.createElement(
+        'link',
+        { name: name },
+        urdx.createElement(
+          'visual',
+          null,
+          urdx.createElement(
+            'geometry',
+            null,
+            urdx.createElement('box', { size: size })
+          )
+        )
+      );
+    }
+  }, {
+    key: 'renderJoint',
+    value: function renderJoint() {
+      console.log('calling renderJoint');
+      var _props = this.props,
+          parent = _props.parent,
+          attributes = _props.attributes;
+
+      if (!(parent || joint)) return null;
+      var _attributes$joint = attributes.joint,
+          joint = _attributes$joint === undefined ? {} : _attributes$joint,
+          name = attributes.name;
+      var origin = joint.origin,
+          type = joint.type;
+      var parentName = parent.name;
+
+      return urdx.createElement(
+        'joint',
+        { name: name + '_joint', type: type },
+        urdx.createElement('parent', { link: parentName }),
+        urdx.createElement('child', { link: name })
+      );
+    }
+  }]);
+
+  return Box;
+}(_LinkComponent4.default);
 
 var robot = urdx.createElement(
   Cylinder,
   { name: 'base_link', length: 0.6, radius: 0.2 },
-  urdx.createElement(Cylinder, { name: 'new_link', length: 0.4, radius: 0.1 })
+  urdx.createElement(Box, { name: 'new_link', size: '0.6 0.1 0.2', joint: { type: 'fixed', origin: '0 0 0' } })
 );
 
 console.log(urdx.renderRobot(robot, { name: "myfirst" }));

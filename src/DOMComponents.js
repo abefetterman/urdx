@@ -6,8 +6,6 @@ function mountChildren(children, parentDOM, parentElement) {
         child.props.parent = getDetailsForChild(parentElement);
         const childComponent = instantiateUrdxComponent(child);
         return childComponent.mountComponent(parentDOM);
-      } else {
-        console.log('no child: '+JSON.stringify(child));
       }
     });
   }

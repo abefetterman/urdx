@@ -26,6 +26,7 @@ extend(LinkComponent.prototype, {
 		const joint = this.renderJoint();
 		if (joint) result.push(joint);
 		if (children) result.push(...children);
+		console.log('result: '+JSON.stringify(result));
 		return result;
 	}
 
