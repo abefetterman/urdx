@@ -13,6 +13,7 @@ function mountChildren(children, parentDOM, parentElement) {
 }
 
 function getDetailsForChild(element) {
+  if (!(element && element.props)) return null;
   return Object.assign({}, element.props.parent, element.props.attributes);
 }
 
@@ -53,7 +54,6 @@ class UrdxCompositeComponentWrapper {
         const childComponent = instantiateUrdxComponent(renderResult);
         return childComponent.mountComponent(container);
       }
-      console.log('No result: '+JSON.stringify(renderResult));
       return container;
     }
 }

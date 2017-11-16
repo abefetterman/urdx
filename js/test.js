@@ -1,14 +1,10 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Component = require('../lib/Component');
+var _lib = require("../lib");
 
-var _Component2 = _interopRequireDefault(_Component);
-
-var _LinkComponent3 = require('../lib/LinkComponent');
-
-var _LinkComponent4 = _interopRequireDefault(_LinkComponent3);
+var _lib2 = _interopRequireDefault(_lib);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17,8 +13,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var urdx = require('../lib');
 
 var Cylinder = function (_LinkComponent) {
   _inherits(Cylinder, _LinkComponent);
@@ -30,23 +24,25 @@ var Cylinder = function (_LinkComponent) {
   }
 
   _createClass(Cylinder, [{
-    key: 'renderLink',
+    key: "renderLink",
     value: function renderLink() {
       var attributes = this.props.attributes;
       var length = attributes.length,
           radius = attributes.radius,
-          name = attributes.name;
+          name = attributes.name,
+          origin = attributes.origin;
 
-      return urdx.createElement(
-        'link',
+      return _lib2.default.createElement(
+        "link",
         { name: name },
-        urdx.createElement(
-          'visual',
+        _lib2.default.createElement(
+          "visual",
           null,
-          urdx.createElement(
-            'geometry',
+          _lib2.default.createElement(
+            "geometry",
             null,
-            urdx.createElement('cylinder', { length: length, radius: radius })
+            _lib2.default.createElement("cylinder", { length: length, radius: radius }),
+            _lib2.default.createElement(_lib.Origin, { origin: origin })
           )
         )
       );
@@ -54,7 +50,7 @@ var Cylinder = function (_LinkComponent) {
   }]);
 
   return Cylinder;
-}(_LinkComponent4.default);
+}(_lib.LinkComponent);
 
 ;
 
@@ -68,58 +64,46 @@ var Box = function (_LinkComponent2) {
   }
 
   _createClass(Box, [{
-    key: 'renderLink',
+    key: "renderLink",
     value: function renderLink() {
       var attributes = this.props.attributes;
       var size = attributes.size,
-          name = attributes.name;
+          name = attributes.name,
+          origin = attributes.origin;
 
-      return urdx.createElement(
-        'link',
+      return _lib2.default.createElement(
+        "link",
         { name: name },
-        urdx.createElement(
-          'visual',
+        _lib2.default.createElement(
+          "visual",
           null,
-          urdx.createElement(
-            'geometry',
+          _lib2.default.createElement(_lib.Origin, { origin: origin }),
+          _lib2.default.createElement(
+            "geometry",
             null,
-            urdx.createElement('box', { size: size })
+            _lib2.default.createElement("box", { size: size })
           )
         )
-      );
-    }
-  }, {
-    key: 'renderJoint',
-    value: function renderJoint() {
-      console.log('calling renderJoint');
-      var _props = this.props,
-          parent = _props.parent,
-          attributes = _props.attributes;
-
-      if (!(parent || joint)) return null;
-      var _attributes$joint = attributes.joint,
-          joint = _attributes$joint === undefined ? {} : _attributes$joint,
-          name = attributes.name;
-      var origin = joint.origin,
-          type = joint.type;
-      var parentName = parent.name;
-
-      return urdx.createElement(
-        'joint',
-        { name: name + '_joint', type: type },
-        urdx.createElement('parent', { link: parentName }),
-        urdx.createElement('child', { link: name })
       );
     }
   }]);
 
   return Box;
-}(_LinkComponent4.default);
+}(_lib.LinkComponent);
 
-var robot = urdx.createElement(
-  Cylinder,
-  { name: 'base_link', length: 0.6, radius: 0.2 },
-  urdx.createElement(Box, { name: 'new_link', size: '0.6 0.1 0.2', joint: { type: 'fixed', origin: '0 0 0' } })
+var robot = _lib2.default.createElement(
+  _lib.Wrapper,
+  null,
+  _lib2.default.createElement(_lib.Materials, null),
+  _lib2.default.createElement(
+    Cylinder,
+    { name: "base_link", length: 0.6, radius: 0.2 },
+    _lib2.default.createElement(Box, {
+      name: "new_link",
+      size: "0.6 0.1 0.2",
+      joint: { type: 'fixed', origin: { x: 0, yaw: 30, z: 0, degrees: true } }
+    })
+  )
 );
 
-console.log(urdx.renderRobot(robot, { name: "myfirst" }));
+console.log(_lib2.default.renderRobot(robot, { name: "myfirst" }));
