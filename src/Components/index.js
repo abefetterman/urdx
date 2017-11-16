@@ -4,6 +4,7 @@ import Materials from './Materials';
 import Wrapper from './Wrapper';
 import Origin from './Origin';
 import Joint from './Joint';
+import UniformSolids from './UniformSolids';
 
 export {
   Component,
@@ -12,4 +13,5 @@ export {
   Wrapper,
   Origin,
   Joint,
+  UniformSolids,
 };

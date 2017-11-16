@@ -6,7 +6,7 @@ import { callFirstFn } from '../../utils';
 
 function cylinderMass(r, h, density) {
   let rho = density || 1;
-  return rho * Math.PI * Math.Pow(r, 2) * h;
+  return rho * Math.PI * Math.pow(r, 2) * h;
 }
 
 function cylinderInertiaTensor(r, h, m) {
@@ -57,7 +57,7 @@ export default class Cylinder extends LinkComponent {
     const { length, radius, origin } = attributes;
     let { material, mass } = attributes;
     if (!material && parent && parent.material) material = parent.material;
-    if (!mass) mass = cylinderMass(radius, length, material.density);
+    if (!mass) mass = cylinderMass(radius, length, material && material.density);
     const inertia = cylinderInertiaTensor(radius, length, mass);
 
     return (
@@ -74,9 +74,9 @@ export default class Cylinder extends LinkComponent {
     const { name, visual, collision, inertial } = attributes;
     return (
       <link name={name}>
-        {callFirstFn([visual, this.renderVisual], this.props)}
-        {callFirstFn([collision, this.renderCollision], this.props)}
-        {callFirstFn([inertial, this.renderInertial], this.props)}
+        {this.renderVisual(this.props)}
+        {this.renderCollision(this.props)}
+        {this.renderInertial(this.props)}
       </link>
     );
   }

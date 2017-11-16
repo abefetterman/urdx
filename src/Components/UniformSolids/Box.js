@@ -57,7 +57,7 @@ export default class Box extends LinkComponent {
     const { dx, dy, dz, origin } = attributes;
     let { material, mass } = attributes;
     if (!material && parent && parent.material) material = parent.material;
-    if (!mass) mass = boxMass(dx, dy, dz, material.density);
+    if (!mass) mass = boxMass(dx, dy, dz, material && material.density);
     const inertia = boxInertiaTensor(dx, dy, dz, mass);
 
     return (
@@ -74,9 +74,9 @@ export default class Box extends LinkComponent {
     const { name, visual, collision, inertial } = attributes;
     return (
       <link name={name}>
-        {callFirstFn([visual, this.renderVisual], this.props)}
-        {callFirstFn([collision, this.renderCollision], this.props)}
-        {callFirstFn([inertial, this.renderInertial], this.props)}
+        {this.renderVisual(this.props)}
+        {this.renderCollision(this.props)}
+        {this.renderInertial(this.props)}
       </link>
     );
   }
