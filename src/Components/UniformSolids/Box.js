@@ -2,7 +2,7 @@ import urdx from '../../urdx';
 import LinkComponent from '../LinkComponent';
 import Origin from '../Origin';
 import Material from '../Material';
-import { callFirstFn, vecString } from '../../utils';
+import { callFirstFn, vecString, truncate } from '../../utils';
 
 function boxMass(dx, dy, dz, density) {
   const rho = density || 1;
@@ -11,12 +11,12 @@ function boxMass(dx, dy, dz, density) {
 
 function boxInertiaTensor(dx, dy, dz, m) {
   return {
-    ixx: m * (Math.pow(dy, 2) + Math.pow(dz, 2)) / 12.0,
+    ixx: truncate(m * (Math.pow(dy, 2) + Math.pow(dz, 2)) / 12.0),
     ixy: 0,
     ixz: 0,
-    iyy: m * (Math.pow(dx, 2) + Math.pow(dz, 2)) / 12.0,
+    iyy: truncate(m * (Math.pow(dx, 2) + Math.pow(dz, 2)) / 12.0),
     iyz: 0,
-    izz: m * (Math.pow(dx, 2) + Math.pow(dy, 2)) / 12.0,
+    izz: truncate(m * (Math.pow(dx, 2) + Math.pow(dy, 2)) / 12.0),
   }
 }
 
@@ -62,7 +62,7 @@ export default class Box extends LinkComponent {
 
     return (
       <inertial>
-        <mass value={mass} />
+        <mass value={truncate(mass)} />
         <inertia {...inertia} />
       </inertial>
     );

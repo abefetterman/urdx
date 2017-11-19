@@ -2,7 +2,7 @@ import urdx from '../../urdx';
 import LinkComponent from '../LinkComponent';
 import Origin from '../Origin';
 import Material from '../Material';
-import { callFirstFn } from '../../utils';
+import { callFirstFn, truncate } from '../../utils';
 
 function cylinderMass(r, h, density) {
   let rho = density || 1;
@@ -11,12 +11,12 @@ function cylinderMass(r, h, density) {
 
 function cylinderInertiaTensor(r, h, m) {
   return {
-    ixx: m * (3 * Math.pow(r, 2) + Math.pow(h, 2)) / 12.0,
+    ixx: truncate(m * (3 * Math.pow(r, 2) + Math.pow(h, 2)) / 12.0),
     ixy: 0,
     ixz: 0,
-    iyy: m * (3 * Math.pow(r, 2) + Math.pow(h, 2)) / 12.0,
+    iyy: truncate(m * (3 * Math.pow(r, 2) + Math.pow(h, 2)) / 12.0),
     iyz: 0,
-    izz: m * Math.pow(r, 2) / 2.0,
+    izz: truncate(m * Math.pow(r, 2) / 2.0),
   }
 }
 
@@ -62,7 +62,7 @@ export default class Cylinder extends LinkComponent {
 
     return (
       <inertial>
-        <mass value={mass} />
+        <mass value={truncate(mass)} />
         <inertia {...inertia} />
       </inertial>
     );

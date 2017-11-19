@@ -8,9 +8,17 @@ export function extend(obj, props) {
     return obj;
 }
 
+export function truncate(number, digits = 9) {
+  if (number && (typeof number === 'number')) {
+    const factor = Math.pow(10, digits);
+    return Math.round(number * factor) / factor;
+  }
+  return number;
+}
+
 export function vecString(...args) {
   if (!(args && typeof args.map === 'function')) return '';
-  const strings = args.map((arg) => `${arg || '0'}`);
+  const strings = args.map((arg) => `${truncate(arg) || '0'}`);
   return strings.join(' ');
 }
 
