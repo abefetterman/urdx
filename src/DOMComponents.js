@@ -45,14 +45,10 @@ class UrdxCompositeComponentWrapper {
       const Component = this._element.type;
       const componentInstance = new Component(this._element.props);
       this._instance = componentInstance;
-      const renderResult = componentInstance.render();
-
-      if (renderResult && (typeof renderResult.map === 'function')) {
+      let renderResult = componentInstance.render();
+      if (renderResult) {
+        if (typeof renderResult.map !== 'function') renderResult=[renderResult];
         return mountChildren(renderResult, container, this._element);
-      }
-      if (renderResult && renderResult.type) {
-        const childComponent = instantiateUrdxComponent(renderResult);
-        return childComponent.mountComponent(container);
       }
       return container;
     }
