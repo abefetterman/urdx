@@ -115,17 +115,17 @@ var Leg = function (_Component2) {
       var _props2 = this.props,
           attributes = _props2.attributes,
           parent = _props2.parent;
-      var name = attributes.name,
+      var prefix = attributes.prefix,
           origin = attributes.origin;
 
       return [_lib2.default.createElement(
         Box,
-        { name: name, dx: 0.6, dy: 0.1, dz: 0.2, joint: { parentName: parent.name, origin: origin } },
+        { name: prefix, dx: 0.6, dy: 0.1, dz: 0.2, joint: { origin: origin } },
         _lib2.default.createElement(
           Box,
-          { name: name + '_base', dx: 0.4, dy: 0.1, dz: 0.1, joint: legJoints.legBase },
-          _lib2.default.createElement(Wheel, { name: name + '_front_wheel', joint: legJoints.frontWheel }),
-          _lib2.default.createElement(Wheel, { name: name + '_back_wheel', joint: legJoints.backWheel })
+          { name: prefix + '_base', dx: 0.4, dy: 0.1, dz: 0.1, joint: legJoints.legBase },
+          _lib2.default.createElement(Wheel, { name: prefix + '_front_wheel', joint: legJoints.frontWheel }),
+          _lib2.default.createElement(Wheel, { name: prefix + '_back_wheel', joint: legJoints.backWheel })
         )
       )];
     }
@@ -141,7 +141,7 @@ var robot = _lib2.default.createElement(
   _lib2.default.createElement(
     Cylinder,
     { name: 'base_link', length: 0.6, radius: 0.2, material: materials.blue },
-    _lib2.default.createElement(Leg, { name: 'left_leg' })
+    _lib2.default.createElement(Leg, { prefix: 'left_leg' })
   )
 );
 

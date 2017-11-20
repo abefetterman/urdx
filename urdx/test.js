@@ -72,12 +72,12 @@ class Wheel extends Component {
 class Leg extends Component {
   render() {
     const { attributes, parent } = this.props;
-    const { name, origin } = attributes;
+    const { prefix, origin } = attributes;
     return [(
-      <Box name={name} dx={0.6} dy={0.1} dz={0.2} joint={{parentName: parent.name, origin}} >
-        <Box name={`${name}_base`} dx={0.4} dy={0.1} dz={0.1} joint={legJoints.legBase}>
-          <Wheel name={`${name}_front_wheel`} joint={legJoints.frontWheel} />
-          <Wheel name={`${name}_back_wheel`} joint={legJoints.backWheel} />
+      <Box name={prefix} dx={0.6} dy={0.1} dz={0.2} joint={{origin}} >
+        <Box name={`${prefix}_base`} dx={0.4} dy={0.1} dz={0.1} joint={legJoints.legBase}>
+          <Wheel name={`${prefix}_front_wheel`} joint={legJoints.frontWheel} />
+          <Wheel name={`${prefix}_back_wheel`} joint={legJoints.backWheel} />
         </Box>
       </Box>
     )]
@@ -88,7 +88,7 @@ const robot = (
   <Wrapper>
     <Materials materials={materials} />
     <Cylinder name="base_link" length={0.6} radius={0.2} material={materials.blue} >
-      <Leg name="left_leg" />
+      <Leg prefix="left_leg" />
     </Cylinder>
   </Wrapper>
 );
