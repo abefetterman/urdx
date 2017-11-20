@@ -121,7 +121,7 @@ var Leg = function (_Component2) {
       return [_lib2.default.createElement(
         Box,
         {
-          name: name,
+          name: prefix,
           dx: 0.6,
           dy: 0.1,
           dz: 0.2,
@@ -130,9 +130,9 @@ var Leg = function (_Component2) {
         },
         _lib2.default.createElement(
           Box,
-          { name: name + '_base', dx: 0.4, dy: 0.1, dz: 0.1, joint: legJoints.legBase },
-          _lib2.default.createElement(Wheel, { name: name + '_front_wheel', joint: legJoints.frontWheel }),
-          _lib2.default.createElement(Wheel, { name: name + '_back_wheel', joint: legJoints.backWheel })
+          { name: prefix + '_base', dx: 0.4, dy: 0.1, dz: 0.1, joint: legJoints.legBase },
+          _lib2.default.createElement(Wheel, { name: prefix + '_front_wheel', joint: legJoints.frontWheel }),
+          _lib2.default.createElement(Wheel, { name: prefix + '_back_wheel', joint: legJoints.backWheel })
         )
       )];
     }
