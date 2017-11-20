@@ -2,7 +2,7 @@ import urdx from '../../urdx';
 import LinkComponent from '../LinkComponent';
 import Origin from '../Origin';
 import Material from '../Material';
-import { callFirstFn } from '../../utils';
+import { callFirstFn, truncate } from '../../utils';
 
 function sphereMass(r, density) {
   let rho = density || 1;
@@ -11,12 +11,12 @@ function sphereMass(r, density) {
 
 function sphereInertiaTensor(r, m) {
   return {
-    ixx: 2 * m * Math.pow(r, 2) / 5.0,
+    ixx: truncate(2 * m * Math.pow(r, 2) / 5.0),
     ixy: 0,
     ixz: 0,
-    iyy: 2 * m * Math.pow(r, 2) / 5.0,
+    iyy: truncate(2 * m * Math.pow(r, 2) / 5.0),
     iyz: 0,
-    izz: 2 * m * Math.pow(r, 2) / 5.0,
+    izz: truncate(2 * m * Math.pow(r, 2) / 5.0),
   }
 }
 
@@ -62,7 +62,7 @@ export default class Sphere extends LinkComponent {
 
     return (
       <inertial>
-        <mass value={mass} />
+        <mass value={truncate(mass)} />
         <inertia {...inertia} />
       </inertial>
     );

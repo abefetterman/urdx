@@ -112,7 +112,7 @@ var Leg = function (_Component2) {
       var prefix = attributes.prefix,
           origin = attributes.origin;
 
-      return [_lib2.default.createElement(
+      return _lib2.default.createElement(
         Box,
         {
           name: prefix,
@@ -129,7 +129,7 @@ var Leg = function (_Component2) {
           _lib2.default.createElement(Wheel, { name: prefix + '_front_wheel', joint: joints.frontWheel }),
           _lib2.default.createElement(Wheel, { name: prefix + '_back_wheel', joint: joints.backWheel })
         )
-      )];
+      );
     }
   }]);
 

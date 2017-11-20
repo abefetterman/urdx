@@ -61,7 +61,7 @@ export default class Leg extends Component {
   render() {
     const { attributes, parent } = this.props;
     const { prefix, origin } = attributes;
-    return [(
+    return (
       <Box
         name={prefix}
         dx={0.6}
@@ -76,6 +76,6 @@ export default class Leg extends Component {
           <Wheel name={`${prefix}_back_wheel`} joint={joints.backWheel} />
         </Box>
       </Box>
-    )]
+    )
   }
 }
