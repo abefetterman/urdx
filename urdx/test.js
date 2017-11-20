@@ -74,10 +74,17 @@ class Leg extends Component {
     const { attributes, parent } = this.props;
     const { prefix, origin } = attributes;
     return [(
-      <Box name={prefix} dx={0.6} dy={0.1} dz={0.2} joint={{origin}} >
-        <Box name={`${prefix}_base`} dx={0.4} dy={0.1} dz={0.1} joint={legJoints.legBase}>
-          <Wheel name={`${prefix}_front_wheel`} joint={legJoints.frontWheel} />
-          <Wheel name={`${prefix}_back_wheel`} joint={legJoints.backWheel} />
+      <Box
+        name={name}
+        dx={0.6}
+        dy={0.1}
+        dz={0.2}
+        joint={{parentName: parent.name, origin}}
+        material={materials.white}
+      >
+        <Box name={`${name}_base`} dx={0.4} dy={0.1} dz={0.1} joint={legJoints.legBase}>
+          <Wheel name={`${name}_front_wheel`} joint={legJoints.frontWheel} />
+          <Wheel name={`${name}_back_wheel`} joint={legJoints.backWheel} />
         </Box>
       </Box>
     )]
