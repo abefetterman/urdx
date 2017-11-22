@@ -10,10 +10,6 @@ var _lib = require('../../lib');
 
 var _lib2 = _interopRequireDefault(_lib);
 
-var _materials = require('./materials');
-
-var _materials2 = _interopRequireDefault(_materials);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22,88 +18,107 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Cylinder = _lib.UniformSolids.Cylinder,
-    Box = _lib.UniformSolids.Box;
+var Mesh = _lib.UniformSolids.Mesh,
+    Cylinder = _lib.UniformSolids.Cylinder;
 
-
-var WHEEL_OFFSET_X = 0.1333;
-var WHEEL_OFFSET_Z = -0.085;
-var WHEEL_DIAMETER = 0.035;
 
 var origins = {
-  leg: {
-    z: -3,
+  pole: {
+    x: 0.1,
     pitch: 90,
     degrees: true
   },
-  wheel: {
-    roll: 90,
+  finger: {
+    roll: -180,
+    degrees: true
+  },
+  tip: {
+    x: 0.9137,
+    y: 0.00495,
+    roll: -180,
     degrees: true
   }
 };
 
 var joints = {
-  legBase: {
+  leftGripper: {
+    type: 'revolute',
+    axis: {
+      z: 1
+    },
+    limit: {
+      upper: 0.548
+    },
     origin: {
-      z: -0.6
+      x: 0.2,
+      y: 0.02
     }
   },
-  frontWheel: {
+  rightGripper: {
+    type: 'revolute',
+    axis: {
+      z: -1
+    },
+    limit: {
+      upper: 0.548
+    },
     origin: {
-      x: WHEEL_OFFSET_X,
-      z: WHEEL_OFFSET_Z
-    }
-  },
-  backWheel: {
-    origin: {
-      x: -WHEEL_OFFSET_X,
-      z: WHEEL_OFFSET_Z
+      x: 0.2,
+      y: -0.02
     }
   }
 };
 
-var Wheel = function (_Component) {
-  _inherits(Wheel, _Component);
+var GripperSide = function (_Component) {
+  _inherits(GripperSide, _Component);
 
-  function Wheel() {
-    _classCallCheck(this, Wheel);
+  function GripperSide() {
+    _classCallCheck(this, GripperSide);
 
-    return _possibleConstructorReturn(this, (Wheel.__proto__ || Object.getPrototypeOf(Wheel)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (GripperSide.__proto__ || Object.getPrototypeOf(GripperSide)).apply(this, arguments));
   }
 
-  _createClass(Wheel, [{
+  _createClass(GripperSide, [{
     key: 'render',
     value: function render() {
       var _props = this.props,
           attributes = _props.attributes,
           parent = _props.parent;
-      var name = attributes.name,
+      var prefix = attributes.prefix,
           joint = attributes.joint;
 
-      return _lib2.default.createElement(Cylinder, {
-        name: name,
-        length: 0.1,
-        radius: WHEEL_DIAMETER / 2,
-        origin: origins.wheel,
-        joint: Object.assign({}, { parentName: parent.name }, joint),
-        material: _materials2.default.black
-      });
+      return _lib2.default.createElement(
+        Mesh,
+        {
+          name: prefix,
+          filename: 'l_finger.stl',
+          origin: origins.finger,
+          length: 0.02,
+          joint: joint
+        },
+        _lib2.default.createElement(Mesh, {
+          name: prefix + '_tip',
+          filename: 'l_finger_tip.stl',
+          length: 0.01,
+          origin: origins.tip
+        })
+      );
     }
   }]);
 
-  return Wheel;
+  return GripperSide;
 }(_lib.Component);
 
-var Leg = function (_Component2) {
-  _inherits(Leg, _Component2);
+var Gripper = function (_Component2) {
+  _inherits(Gripper, _Component2);
 
-  function Leg() {
-    _classCallCheck(this, Leg);
+  function Gripper() {
+    _classCallCheck(this, Gripper);
 
-    return _possibleConstructorReturn(this, (Leg.__proto__ || Object.getPrototypeOf(Leg)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Gripper.__proto__ || Object.getPrototypeOf(Gripper)).apply(this, arguments));
   }
 
-  _createClass(Leg, [{
+  _createClass(Gripper, [{
     key: 'render',
     value: function render() {
       var _props2 = this.props,
@@ -113,27 +128,28 @@ var Leg = function (_Component2) {
           joint = attributes.joint;
 
       return _lib2.default.createElement(
-        Box,
+        Cylinder,
         {
-          name: prefix,
-          dx: 0.6,
-          dy: 0.1,
-          dz: 0.2,
+          name: prefix + '_pole',
+          length: 0.2,
+          radius: 0.01,
           joint: joint,
-          material: _materials2.default.white,
-          origin: origins.leg
+          material: null,
+          origin: origins.pole
         },
-        _lib2.default.createElement(
-          Box,
-          { name: prefix + '_base', dx: 0.4, dy: 0.1, dz: 0.1, joint: joints.legBase },
-          _lib2.default.createElement(Wheel, { name: prefix + '_front_wheel', joint: joints.frontWheel }),
-          _lib2.default.createElement(Wheel, { name: prefix + '_back_wheel', joint: joints.backWheel })
-        )
+        _lib2.default.createElement(GripperSide, {
+          prefix: prefix + '_left',
+          joint: joints.leftGripper
+        }),
+        _lib2.default.createElement(GripperSide, {
+          prefix: prefix + '_right',
+          joint: joints.rightGripper
+        })
       );
     }
   }]);
 
-  return Leg;
+  return Gripper;
 }(_lib.Component);
 
-exports.default = Leg;
+exports.default = Gripper;

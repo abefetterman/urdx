@@ -60,14 +60,14 @@ class Wheel extends Component {
 export default class Leg extends Component {
   render() {
     const { attributes, parent } = this.props;
-    const { prefix, origin } = attributes;
+    const { prefix, joint } = attributes;
     return (
       <Box
         name={prefix}
         dx={0.6}
         dy={0.1}
         dz={0.2}
-        joint={{parentName: parent.name, origin}}
+        joint={joint}
         material={materials.white}
         origin={origins.leg}
       >

@@ -1,83 +1,24 @@
 import urdx from '../../urdx';
-import LinkComponent from '../LinkComponent';
-import Origin from '../Origin';
-import Material from '../Material';
-import { callFirstFn, truncate } from '../../utils';
+import UniformSolid from '../UniformSolid'
+import { truncate } from '../../utils';
 
-function sphereMass(r, density) {
-  let rho = density || 1;
-  return rho * 4 * Math.PI * Math.pow(r, 3) / 3.0;
-}
+export default class Sphere extends UniformSolid {
+  geometry({ radius }) {
+    return (<sphere radius={radius} />);
+  }
 
-function sphereInertiaTensor(r, m) {
-  return {
-    ixx: truncate(2 * m * Math.pow(r, 2) / 5.0),
-    ixy: 0,
-    ixz: 0,
-    iyy: truncate(2 * m * Math.pow(r, 2) / 5.0),
-    iyz: 0,
-    izz: truncate(2 * m * Math.pow(r, 2) / 5.0),
+  mass({ radius }, density) {
+    return density * 4 * Math.PI * Math.pow(radius, 3) / 3.0;
+  }
+
+  inertiaTensor({ radius }, mass) {
+    return {
+      ixx: truncate(2 * mass * Math.pow(radius, 2) / 5.0),
+      ixy: 0,
+      ixz: 0,
+      iyy: truncate(2 * mass * Math.pow(radius, 2) / 5.0),
+      iyz: 0,
+      izz: truncate(2 * mass * Math.pow(radius, 2) / 5.0),
+    }
   }
 }
-
-export default class Sphere extends LinkComponent {
-  renderVisual(props) {
-    const { parent, attributes } = props;
-    const { radius, origin } = attributes;
-    let { material } = attributes;
-    if (!material && parent && parent.material) material=parent.material;
-
-    return (
-      <visual>
-        <geometry>
-          <sphere radius={radius} />
-        </geometry>
-        <Origin origin={origin} />
-        <Material material={material} />
-      </visual>
-    );
-  }
-
-  renderCollision(props) {
-    const { parent, attributes } = props;
-    const { radius, origin, mass } = attributes;
-
-    return (
-      <collision>
-        <geometry>
-          <sphere radius={radius} />
-        </geometry>
-        <Origin origin={origin} />
-      </collision>
-    );
-  }
-
-  renderInertial(props) {
-    const { parent, attributes } = props;
-    const { radius, origin } = attributes;
-    let { material, mass } = attributes;
-    if (!material && parent && parent.material) material = parent.material;
-    if (!mass) mass = sphereMass(radius, material && material.density);
-    const inertia = sphereInertiaTensor(radius, mass);
-
-    return (
-      <inertial>
-        <mass value={truncate(mass)} />
-        <inertia {...inertia} />
-      </inertial>
-    );
-  }
-
-  renderLink() {
-    const { attributes } = this.props;
-    if (!attributes) return null;
-    const { name, visual, collision, inertial } = attributes;
-    return (
-      <link name={name}>
-        {this.renderVisual(this.props)}
-        {this.renderCollision(this.props)}
-        {this.renderInertial(this.props)}
-      </link>
-    );
-  }
-};
