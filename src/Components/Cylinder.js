@@ -1,8 +1,8 @@
-import urdx from '../../urdx';
-import UniformSolid from '../UniformSolid'
-import { truncate } from '../../utils';
+import urdx from '../urdx';
+import LinkComponent from './LinkComponent'
+import { truncate } from '../utils';
 
-export default class Cylinder extends UniformSolid {
+export default class Cylinder extends LinkComponent {
   geometry({ radius, length }) {
     return (<cylinder length={length} radius={radius} />);
   }

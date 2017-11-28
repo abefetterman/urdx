@@ -1,5 +1,4 @@
-import urdx, { UniformSolids, Component } from '../../lib';
-const { Mesh, Cylinder } = UniformSolids;
+import urdx, { Mesh, Cylinder, Component } from '../../lib';
 
 const origins = {
   pole: {

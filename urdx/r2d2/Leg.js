@@ -1,6 +1,4 @@
-import urdx, { UniformSolids, Component } from '../../lib';
-
-const { Cylinder, Box } = UniformSolids;
+import urdx, { Cylinder, Box, Component } from '../../lib';
 
 import materials from './materials';
 

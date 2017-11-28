@@ -1,8 +1,8 @@
-import urdx from '../../urdx';
-import UniformSolid from '../UniformSolid'
-import { truncate } from '../../utils';
+import urdx from '../urdx';
+import LinkComponent from './LinkComponent'
+import { truncate } from '../utils';
 
-export default class Mesh extends UniformSolid {
+export default class Mesh extends LinkComponent {
   geometry({ filename }) {
     return (<mesh filename={filename} />);
   }

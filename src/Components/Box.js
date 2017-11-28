@@ -1,8 +1,8 @@
-import urdx from '../../urdx';
-import UniformSolid from '../UniformSolid'
-import { vecString, truncate } from '../../utils';
+import urdx from '../urdx';
+import LinkComponent from './LinkComponent'
+import { vecString, truncate } from '../utils';
 
-export default class Box extends UniformSolid {
+export default class Box extends LinkComponent {
   geometry({ dx, dy, dz }) {
     return (<box size={vecString(dx, dy, dz)} />);
   }

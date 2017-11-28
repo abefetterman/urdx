@@ -22,10 +22,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Cylinder = _lib.UniformSolids.Cylinder,
-    Box = _lib.UniformSolids.Box;
-
-
 var WHEEL_OFFSET_X = 0.1333;
 var WHEEL_OFFSET_Z = -0.085;
 var WHEEL_DIAMETER = 0.035;
@@ -80,7 +76,7 @@ var Wheel = function (_Component) {
       var name = attributes.name,
           joint = attributes.joint;
 
-      return _lib2.default.createElement(Cylinder, {
+      return _lib2.default.createElement(_lib.Cylinder, {
         name: name,
         length: 0.1,
         radius: WHEEL_DIAMETER / 2,
@@ -113,7 +109,7 @@ var Leg = function (_Component2) {
           joint = attributes.joint;
 
       return _lib2.default.createElement(
-        Box,
+        _lib.Box,
         {
           name: prefix,
           dx: 0.6,
@@ -124,7 +120,7 @@ var Leg = function (_Component2) {
           origin: origins.leg
         },
         _lib2.default.createElement(
-          Box,
+          _lib.Box,
           { name: prefix + '_base', dx: 0.4, dy: 0.1, dz: 0.1, joint: joints.legBase },
           _lib2.default.createElement(Wheel, { name: prefix + '_front_wheel', joint: joints.frontWheel }),
           _lib2.default.createElement(Wheel, { name: prefix + '_back_wheel', joint: joints.backWheel })

@@ -18,10 +18,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Mesh = _lib.UniformSolids.Mesh,
-    Cylinder = _lib.UniformSolids.Cylinder;
-
-
 var origins = {
   pole: {
     x: 0.1,
@@ -88,7 +84,7 @@ var GripperSide = function (_Component) {
           joint = attributes.joint;
 
       return _lib2.default.createElement(
-        Mesh,
+        _lib.Mesh,
         {
           name: prefix,
           filename: 'l_finger.stl',
@@ -96,7 +92,7 @@ var GripperSide = function (_Component) {
           length: 0.02,
           joint: joint
         },
-        _lib2.default.createElement(Mesh, {
+        _lib2.default.createElement(_lib.Mesh, {
           name: prefix + '_tip',
           filename: 'l_finger_tip.stl',
           length: 0.01,
@@ -128,7 +124,7 @@ var Gripper = function (_Component2) {
           joint = attributes.joint;
 
       return _lib2.default.createElement(
-        Cylinder,
+        _lib.Cylinder,
         {
           name: prefix + '_pole',
           length: 0.2,

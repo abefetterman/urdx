@@ -1,21 +1,27 @@
 import constants from './constants';
 import Component from './Component';
-import LinkComponent from './LinkComponent';
+import JoinedComponent from './JoinedComponent';
 import Materials from './Materials';
 import Wrapper from './Wrapper';
 import Origin from './Origin';
 import Joint from './Joint';
-import UniformSolid from './UniformSolid';
-import UniformSolids from './UniformSolids';
+import LinkComponent from './LinkComponent';
+import Box from './Box';
+import Cylinder from './Cylinder';
+import Mesh from './Mesh';
+import Sphere from './Sphere';
 
 export {
   constants,
   Component,
-  LinkComponent,
+  JoinedComponent,
   Materials,
   Wrapper,
   Origin,
   Joint,
-  UniformSolids,
-  UniformSolid,
+  LinkComponent,
+  Box,
+  Cylinder,
+  Mesh,
+  Sphere,
 };

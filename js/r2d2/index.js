@@ -18,9 +18,6 @@ var _Gripper2 = _interopRequireDefault(_Gripper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Cylinder = _lib.UniformSolids.Cylinder;
-
-
 var ROBOT_LEG_Y = 0.22;
 var ROBOT_LEG_Z = 0.25;
 
@@ -59,7 +56,7 @@ var robot = _lib2.default.createElement(
   null,
   _lib2.default.createElement(_lib.Materials, { materials: _materials2.default }),
   _lib2.default.createElement(
-    Cylinder,
+    _lib.Cylinder,
     { name: 'base_link', length: 0.6, radius: 0.2, material: _materials2.default.blue },
     _lib2.default.createElement(_Leg2.default, { prefix: 'left_leg', joint: joints.leftLeg }),
     _lib2.default.createElement(_Leg2.default, { prefix: 'right_leg', joint: joints.rightLeg }),
