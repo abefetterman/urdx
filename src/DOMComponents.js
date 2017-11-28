@@ -28,9 +28,13 @@ class UrdxDOMComponent {
 
       this._parent = container;
 
-      const mountedComponent = container.ele(domElement, attributes);
-
-      mountChildren(children, mountedComponent, this._element);
+      let mountedComponent;
+      if (children && children.length && typeof children[0] === 'string') {
+        mountedComponent = container.ele(domElement, attributes, children);
+      } else {
+        mountedComponent = container.ele(domElement, attributes);
+        mountChildren(children, mountedComponent, this._element);
+      }
 
       return mountedComponent
     }
