@@ -27,9 +27,10 @@ export default class LinkComponent extends JoinedComponent {
 
   renderVisual(props) {
     const { parent, attributes } = props;
-    const { origin, visualGeometry } = attributes;
-    let { material } = attributes;
+    const { visualGeometry } = attributes;
+    let { material, origin } = attributes;
     if (!material && parent && parent.material) material=parent.material;
+    if (origin && origin.visual) origin = origin.visual;
 
     return (
       <visual>
@@ -44,7 +45,9 @@ export default class LinkComponent extends JoinedComponent {
 
   renderCollision(props) {
     const { attributes } = props;
-    const { origin, collisionGeometry } = attributes;
+    const { collisionGeometry } = attributes;
+    let { origin } = attributes;
+    if (origin && origin.collision) origin = origin.collision;
 
     return (
       <collision>
@@ -58,16 +61,18 @@ export default class LinkComponent extends JoinedComponent {
 
   renderInertial(props) {
     const { parent, attributes } = props;
-    let { material, mass } = attributes;
+    let { material, mass, origin } = attributes;
     if (!material && parent && parent.material) material = parent.material;
     const density = (material && material.density) || constants.density.water;
     if (!mass) mass = this.mass(attributes, density);
     const inertia = this.inertiaTensor(attributes, mass);
+    if (origin && origin.inertial) origin = origin.inertial;
 
     return (
       <inertial>
         <mass value={truncate(mass)} />
         <inertia {...inertia} />
+        <Origin origin={origin} />
       </inertial>
     );
   }

@@ -2,7 +2,7 @@
 function mountChildren(children, parentDOM, parentElement) {
   if (children && (typeof children.map === 'function')) {
     children.map((child) => {
-      if (child) {
+      if (child && child.props) {
         child.props.parent = getDetailsForChild(parentElement);
         const childComponent = instantiateUrdxComponent(child);
         return childComponent.mountComponent(parentDOM);
@@ -23,8 +23,12 @@ class UrdxDOMComponent {
     }
 
     mountComponent(container) {
-      const domElement = this._element.type;
+      let domElement = this._element.type;
       const { attributes, children } = this._element.props;
+      if (attributes && attributes.namespace && typeof attributes.namespace === 'string') {
+        domElement=`${attributes.namespace}:${domElement}`;
+        delete attributes.namespace;
+      }
 
       this._parent = container;
 
