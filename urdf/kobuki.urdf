@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<robot name="kobuki">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://kobuki_description/meshes/main_body.dae"/>
+      </geometry>
+      <origin xyz="0.001 0 0.05199" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.10938" radius="0.176"/>
+      </geometry>
+      <origin xyz="0 0 0.05949" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="2.4"/>
+      <inertia ixx="0.020978397" ixy="0" ixz="0" iyy="0.020978397" iyz="0" izz="0.0371712"/>
+      <origin xyz="0 0 0.05949" rpy="0 0 0"/>
+    </inertial>
+  </link>
+  <link name="right_wheel_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://kobuki_description/meshes/wheel.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.0206" radius="0.0352"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.080186715"/>
+      <inertia ixx="0.000027674" ixy="0" ixz="0" iyy="0.000027674" iyz="0" izz="0.000049677"/>
+    </inertial>
+  </link>
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel_link"/>
+    <origin xyz="0 -0.115 0.025" rpy="-1.570796327 0 0"/>
+  </joint>
+  <gazebo reference="right_wheel">
+    <mu1 value="10"/>
+    <mu2 value="10"/>
+    <kp value="100000000.0"/>
+    <kd value="10000.0"/>
+  </gazebo>
+  <link name="left_wheel_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://kobuki_description/meshes/wheel.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.0206" radius="0.0352"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.080186715"/>
+      <inertia ixx="0.000027674" ixy="0" ixz="0" iyy="0.000027674" iyz="0" izz="0.000049677"/>
+    </inertial>
+  </link>
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel_link"/>
+    <origin xyz="0 0.115 0.025" rpy="-1.570796327 0 0"/>
+  </joint>
+  <gazebo reference="left_wheel">
+    <mu1 value="10"/>
+    <mu2 value="10"/>
+    <kp value="100000000.0"/>
+    <kd value="10000.0"/>
+  </gazebo>
+  <link name="caster_front_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.0176" radius="0.017"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.0176" radius="0.017"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.015979397"/>
+      <inertia ixx="0.000001567" ixy="0" ixz="0" iyy="0.000001567" iyz="0" izz="0.000002309"/>
+    </inertial>
+  </link>
+  <joint name="caster_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_front_link"/>
+    <origin xyz="0.115 0 0.007" rpy="-1.570796327 0 0"/>
+  </joint>
+  <gazebo reference="caster_front_link">
+    <mu1 value="0"/>
+    <mu2 value="0"/>
+    <kp value="100000000.0"/>
+    <kd value="10000.0"/>
+  </gazebo>
+  <link name="caster_back_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.0176" radius="0.017"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.0176" radius="0.017"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.015979397"/>
+      <inertia ixx="0.000001567" ixy="0" ixz="0" iyy="0.000001567" iyz="0" izz="0.000002309"/>
+    </inertial>
+  </link>
+  <joint name="caster_back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_back_link"/>
+    <origin xyz="-0.135 0 0.009" rpy="-1.570796327 0 0"/>
+  </joint>
+  <gazebo reference="caster_back_link">
+    <mu1 value="0"/>
+    <mu2 value="0"/>
+    <kp value="100000000.0"/>
+    <kd value="10000.0"/>
+  </gazebo>
+  <link name="gyro_link">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="1e-8" ixy="0" ixz="0" iyy="1e-8" iyz="0" izz="1e-8"/>
+    </inertial>
+  </link>
+  <joint name="gyro_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="gyro_link"/>
+    <origin xyz="0.056 0.062 0.0202" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <gazebo>
+    <controller:gazebo_ros_imu name="imu_controller" plugin="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50</updateRate>
+      <bodyName>gyro_link</bodyName>
+      <topicName>/mobile_base/sensors/imu_data</topicName>
+      <gaussianNoise/>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+      <interface:position name="gyro_link"/>
+    </controller:gazebo_ros_imu>
+  </gazebo>
+  <link name="cliff_sensor_front_link">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="1e-8" ixy="0" ixz="0" iyy="1e-8" iyz="0" izz="1e-8"/>
+    </inertial>
+  </link>
+  <joint name="cliff_sensor_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="cliff_sensor_front_link"/>
+    <origin xyz="0.156 0 0.0214" rpy="0 1.570796327 0"/>
+  </joint>
+  <gazebo reference="cliff_sensor_front_link">
+    <sensor:ray name="cliff_sensor_front">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50</updateRate>
+      <rayCount>50</rayCount>
+      <rangeCount>1</rangeCount>
+      <resRange>1.0</resRange>
+      <minAngle>-2.5</minAngle>
+      <maxAngle>2.5</maxAngle>
+      <minRange>0.01</minRange>
+      <maxRange>0.15</maxRange>
+      <displayRays>true</displayRays>
+    </sensor:ray>
+  </gazebo>
+  <link name="cliff_sensor_left_link">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="1e-8" ixy="0" ixz="0" iyy="1e-8" iyz="0" izz="1e-8"/>
+    </inertial>
+  </link>
+  <joint name="cliff_sensor_left_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="cliff_sensor_left_link"/>
+    <origin xyz="0.08734 0.13601 0.0214" rpy="0 1.570796327 0"/>
+  </joint>
+  <gazebo reference="cliff_sensor_left_link">
+    <sensor:ray name="cliff_sensor_left">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50</updateRate>
+      <rayCount>50</rayCount>
+      <rangeCount>1</rangeCount>
+      <resRange>1.0</resRange>
+      <minAngle>-2.5</minAngle>
+      <maxAngle>2.5</maxAngle>
+      <minRange>0.01</minRange>
+      <maxRange>0.15</maxRange>
+      <displayRays>true</displayRays>
+    </sensor:ray>
+  </gazebo>
+  <link name="cliff_sensor_right_link">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="1e-8" ixy="0" ixz="0" iyy="1e-8" iyz="0" izz="1e-8"/>
+    </inertial>
+  </link>
+  <joint name="cliff_sensor_right_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="cliff_sensor_right_link"/>
+    <origin xyz="0.085 -0.13601 0.0214" rpy="0 1.570796327 0"/>
+  </joint>
+  <gazebo reference="cliff_sensor_right_link">
+    <sensor:ray name="cliff_sensor_right">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50</updateRate>
+      <rayCount>50</rayCount>
+      <rangeCount>1</rangeCount>
+      <resRange>1.0</resRange>
+      <minAngle>-2.5</minAngle>
+      <maxAngle>2.5</maxAngle>
+      <minRange>0.01</minRange>
+      <maxRange>0.15</maxRange>
+      <displayRays>true</displayRays>
+    </sensor:ray>
+  </gazebo>
+  <gazebo reference="base">
+    <sensor:contact name="bumpers">
+      <geom>base_footprint_geom_base_link</geom>
+      <topic>bumpers</topic>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50</updateRate>
+    </sensor:contact>
+  </gazebo>
+  <gazebo>
+    <controller:gazebo_ros_kobuki name="kobuki_controller" plugin="libgazebo_ros_kobuki.so">
+      <left_wheel_joint_name>left_wheel_joint</left_wheel_joint_name>
+      <right_wheel_joint_name>right_wheel_joint</right_wheel_joint_name>
+      <wheel_separation>.230</wheel_separation>
+      <wheel_diameter>0.070</wheel_diameter>
+      <torque>1.0</torque>
+      <velocity_command_timeout>0.6</velocity_command_timeout>
+      <cliff_sensor_left_name>cliff_sensor_left</cliff_sensor_left_name>
+      <cliff_sensor_front_name>cliff_sensor_front</cliff_sensor_front_name>
+      <cliff_sensor_right_name>cliff_sensor_right</cliff_sensor_right_name>
+      <cliff_detection_threshold>0.04</cliff_detection_threshold>
+      <bumper_name>bumpers</bumper_name>
+      <base_collision_model_link>base_link</base_collision_model_link>
+    </controller:gazebo_ros_kobuki>
+  </gazebo>
+</robot>

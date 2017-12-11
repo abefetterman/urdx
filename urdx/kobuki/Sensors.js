@@ -1,6 +1,6 @@
 import urdx, { Wrapper, Component, LinkComponent } from '../../lib';
 
-// LinkComponent provides inertial data and joint by default
+// LinkComponent provides link with inertia and joint
 class Gyro extends LinkComponent {
   renderOther() {
     const { attributes } = this.props;

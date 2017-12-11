@@ -1,4 +1,5 @@
 var builder = require('xmlbuilder');
+var fs = require('fs');
 
 var { instantiateUrdxComponent, mountChildren } = require('./DOMComponents');
 
@@ -47,7 +48,16 @@ const Urdx = {
         })
       }
       return root.end({pretty: true})
-    }
+    },
+
+		writeOutput(files) {
+			const urdx = this;
+			if (!(files && typeof files.map === 'function')) return null;
+			return files.map((file) => {
+				const renderedRobot = urdx.renderRobot(file.robot, file.args);
+				fs.writeFile(`./urdf/${file.filename}`, renderedRobot);
+			});
+		}
 };
 
 export default Urdx;

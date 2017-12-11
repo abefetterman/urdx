@@ -49,4 +49,6 @@ const robot = (
   </Wrapper>
 );
 
-console.log(urdx.renderRobot(robot, { name: "myfirst" }));
+export default robot;
+
+// console.log(urdx.renderRobot(robot, { name: "r2d2" }));

@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _lib = require('../../lib');
 
 var _lib2 = _interopRequireDefault(_lib);
@@ -57,11 +61,13 @@ var robot = _lib2.default.createElement(
   _lib2.default.createElement(_lib.Materials, { materials: _materials2.default }),
   _lib2.default.createElement(
     _lib.Cylinder,
-    { name: 'base_link', length: 0.6, radius: 0.2, material: _materials2.default.blue },
+    { name: 'base', length: 0.6, radius: 0.2, material: _materials2.default.blue },
     _lib2.default.createElement(_Leg2.default, { prefix: 'left_leg', joint: joints.leftLeg }),
     _lib2.default.createElement(_Leg2.default, { prefix: 'right_leg', joint: joints.rightLeg }),
     _lib2.default.createElement(_Gripper2.default, { prefix: 'gripper', joint: joints.gripper })
   )
 );
 
-console.log(_lib2.default.renderRobot(robot, { name: "myfirst" }));
+exports.default = robot;
+
+// console.log(urdx.renderRobot(robot, { name: "r2d2" }));

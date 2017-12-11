@@ -140,4 +140,6 @@ const robot = (
   </Wrapper>
 );
 
-console.log(urdx.renderRobot(robot, { name: "kobuki" }));
+export default robot;
+
+// console.log(urdx.renderRobot(robot, { name: "kobuki" }));
