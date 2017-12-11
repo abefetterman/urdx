@@ -1,23 +1,7 @@
-import urdx, { Wrapper, Component, JoinedComponent } from '../../lib';
+import urdx, { Wrapper, Component, LinkComponent } from '../../lib';
 
-class Gyro extends JoinedComponent {
-  renderLink() {
-    const { attributes } = this.props;
-    if (!attributes) return null;
-    const { name } = attributes;
-    return (
-      <link name={name}>
-        <inertial>
-          <mass value="0.001"/>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-          <inertia ixx="0.0001" ixy="0" ixz="0"
-                   iyy="0.000001" iyz="0"
-                   izz="0.0001"/>
-        </inertial>
-      </link>
-    );
-  }
-
+// LinkComponent provides inertial data and joint by default
+class Gyro extends LinkComponent {
   renderOther() {
     const { attributes } = this.props;
     if (!attributes) return null;
@@ -39,24 +23,7 @@ class Gyro extends JoinedComponent {
   }
 }
 
-class CliffSensor extends JoinedComponent {
-  renderLink() {
-    const { attributes } = this.props;
-    if (!attributes) return null;
-    const { name } = attributes;
-    return (
-      <link name={`${name}_link`}>
-        <inertial>
-          <mass value="0.0001" />
-          <origin xyz="0 0 0" />
-          <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-                   iyy="0.0001" iyz="0.0"
-                   izz="0.0001" />
-        </inertial>
-      </link>
-    );
-  }
-
+class CliffSensor extends LinkComponent {
   renderOther() {
     const { attributes } = this.props;
     if (!attributes) return null;

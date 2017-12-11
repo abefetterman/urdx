@@ -10,9 +10,9 @@ export default class Joint extends Component {
     const { childName, parentName, origin, type, axis, limit } = attributes;
     if (!(childName && parentName)) return null;
     return (
-      <joint name={childName + '_joint'} type={type || 'fixed'}>
-        <parent link={parentName} />
-        <child link={childName} />
+      <joint name={`${childName}_joint`} type={type || 'fixed'}>
+        <parent link={`${parentName}_link`} />
+        <child link={`${childName}_link`} />
         <Origin origin={origin} />
         <Axis axis={axis} />
         <Limit limit={limit} />

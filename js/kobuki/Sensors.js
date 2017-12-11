@@ -18,8 +18,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Gyro = function (_JoinedComponent) {
-  _inherits(Gyro, _JoinedComponent);
+var Gyro = function (_LinkComponent) {
+  _inherits(Gyro, _LinkComponent);
 
   function Gyro() {
     _classCallCheck(this, Gyro);
@@ -28,28 +28,6 @@ var Gyro = function (_JoinedComponent) {
   }
 
   _createClass(Gyro, [{
-    key: "renderLink",
-    value: function renderLink() {
-      var attributes = this.props.attributes;
-
-      if (!attributes) return null;
-      var name = attributes.name;
-
-      return _lib2.default.createElement(
-        "link",
-        { name: name },
-        _lib2.default.createElement(
-          "inertial",
-          null,
-          _lib2.default.createElement("mass", { value: "0.001" }),
-          _lib2.default.createElement("origin", { xyz: "0 0 0", rpy: "0 0 0" }),
-          _lib2.default.createElement("inertia", { ixx: "0.0001", ixy: "0", ixz: "0",
-            iyy: "0.000001", iyz: "0",
-            izz: "0.0001" })
-        )
-      );
-    }
-  }, {
     key: "renderOther",
     value: function renderOther() {
       var attributes = this.props.attributes;
@@ -105,10 +83,10 @@ var Gyro = function (_JoinedComponent) {
   }]);
 
   return Gyro;
-}(_lib.JoinedComponent);
+}(_lib.LinkComponent);
 
-var CliffSensor = function (_JoinedComponent2) {
-  _inherits(CliffSensor, _JoinedComponent2);
+var CliffSensor = function (_LinkComponent2) {
+  _inherits(CliffSensor, _LinkComponent2);
 
   function CliffSensor() {
     _classCallCheck(this, CliffSensor);
@@ -117,28 +95,6 @@ var CliffSensor = function (_JoinedComponent2) {
   }
 
   _createClass(CliffSensor, [{
-    key: "renderLink",
-    value: function renderLink() {
-      var attributes = this.props.attributes;
-
-      if (!attributes) return null;
-      var name = attributes.name;
-
-      return _lib2.default.createElement(
-        "link",
-        { name: name + "_link" },
-        _lib2.default.createElement(
-          "inertial",
-          null,
-          _lib2.default.createElement("mass", { value: "0.0001" }),
-          _lib2.default.createElement("origin", { xyz: "0 0 0" }),
-          _lib2.default.createElement("inertia", { ixx: "0.0001", ixy: "0.0", ixz: "0.0",
-            iyy: "0.0001", iyz: "0.0",
-            izz: "0.0001" })
-        )
-      );
-    }
-  }, {
     key: "renderOther",
     value: function renderOther() {
       var attributes = this.props.attributes;
@@ -208,7 +164,7 @@ var CliffSensor = function (_JoinedComponent2) {
   }]);
 
   return CliffSensor;
-}(_lib.JoinedComponent);
+}(_lib.LinkComponent);
 
 var Bumpers = function (_Component) {
   _inherits(Bumpers, _Component);

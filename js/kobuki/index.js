@@ -137,7 +137,7 @@ var Caster = function (_Component2) {
         }),
         _lib2.default.createElement(
           'gazebo',
-          { reference: name },
+          { reference: name + '_link' },
           _lib2.default.createElement('mu1', { value: '0' }),
           _lib2.default.createElement('mu2', { value: '0' }),
           _lib2.default.createElement('kp', { value: '100000000.0' }),
@@ -171,12 +171,12 @@ var Controller = function (_Component3) {
           _lib2.default.createElement(
             'left_wheel_joint_name',
             null,
-            'wheel_left_joint'
+            'left_wheel_joint'
           ),
           _lib2.default.createElement(
             'right_wheel_joint_name',
             null,
-            'wheel_right_joint'
+            'right_wheel_joint'
           ),
           _lib2.default.createElement(
             'wheel_separation',
@@ -242,7 +242,7 @@ var robot = _lib2.default.createElement(
   _lib2.default.createElement(
     _lib.Cylinder,
     {
-      name: 'base_link',
+      name: 'base',
       length: 0.10938,
       radius: 0.176,
       mass: 2.4,

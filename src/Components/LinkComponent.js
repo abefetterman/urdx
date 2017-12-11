@@ -11,17 +11,18 @@ export default class LinkComponent extends JoinedComponent {
   }
 
   mass(attributes, density) {
-    return 1;
+    return 1e-3; // 1 gram
   }
 
-  inertialTensor(attributes, mass) {
+  inertiaTensor(attributes, mass) {
+    // corresponds to 1g sphere of diameter 1 cm
     return {
-      ixx: 1e-3,
+      ixx: 1e-8,
       ixy: 0,
       ixz: 0,
-      iyy: 1e-3,
+      iyy: 1e-8,
       iyz: 0,
-      izz: 1e-3,
+      izz: 1e-8,
     };
   }
 
@@ -31,11 +32,13 @@ export default class LinkComponent extends JoinedComponent {
     let { material, origin } = attributes;
     if (!material && parent && parent.material) material=parent.material;
     if (origin && origin.visual) origin = origin.visual;
+    const geometry = visualGeometry || this.geometry(attributes);
+    if (!geometry) return null;
 
     return (
       <visual>
         <geometry>
-          {visualGeometry || this.geometry(attributes)}
+          {geometry}
         </geometry>
         <Origin origin={origin} />
         <Material material={material} />
@@ -48,11 +51,13 @@ export default class LinkComponent extends JoinedComponent {
     const { collisionGeometry } = attributes;
     let { origin } = attributes;
     if (origin && origin.collision) origin = origin.collision;
+    const geometry = collisionGeometry || this.geometry(attributes);
+    if (!geometry) return null;
 
     return (
       <collision>
         <geometry>
-          {collisionGeometry || this.geometry(attributes)}
+          {geometry}
         </geometry>
         <Origin origin={origin} />
       </collision>
@@ -82,7 +87,7 @@ export default class LinkComponent extends JoinedComponent {
     if (!attributes) return null;
     const { name } = attributes;
     return (
-      <link name={name}>
+      <link name={`${name}_link`}>
         {this.renderVisual(this.props)}
         {this.renderCollision(this.props)}
         {this.renderInertial(this.props)}

@@ -85,7 +85,7 @@ class Caster extends Component {
           radius={0.017}
           joint={Object.assign({},{parentName: parent.name}, joint)}
         />
-        <gazebo reference={name}>
+        <gazebo reference={`${name}_link`}>
           <mu1 value="0"/>
           <mu2 value="0"/>
           <kp value="100000000.0"/>
@@ -123,7 +123,7 @@ class Controller extends Component {
 const robot = (
   <Wrapper>
     <Cylinder
-      name="base_link"
+      name="base"
       length={0.10938}
       radius={0.176}
       mass={2.4}

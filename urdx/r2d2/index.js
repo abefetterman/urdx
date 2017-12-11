@@ -41,7 +41,7 @@ const joints={
 const robot = (
   <Wrapper>
     <Materials materials={materials} />
-    <Cylinder name="base_link" length={0.6} radius={0.2} material={materials.blue} >
+    <Cylinder name="base" length={0.6} radius={0.2} material={materials.blue} >
       <Leg prefix="left_leg" joint={joints.leftLeg} />
       <Leg prefix="right_leg" joint={joints.rightLeg} />
       <Gripper prefix="gripper" joint={joints.gripper} />
