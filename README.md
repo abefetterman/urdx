@@ -107,7 +107,7 @@ The `<macro>` tag will be transformed to `<xacro:macro>` before being written as
 
 Create a new folder and add this as `package.json`:
 
-```json
+```javascript
 {
   "name": "My Super Robot",
   "version": "1.0.0",
@@ -122,7 +122,6 @@ Create a new folder and add this as `package.json`:
     "babel-preset-env": "^1.6.1"
   },
   "dependencies": {
-    "xmlbuilder": "^9.0.4",
     "urdx": "latest"
   },
   "babel": {
