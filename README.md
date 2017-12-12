@@ -1,7 +1,7 @@
 # urdx
-## Robot definitions using JSX
+## Create URDF robot definitions using JSX
 
-This is essentially an XML templating language for rendering URDF files.
+This is essentially a templating engine for rendering URDF files using javascript.
 This allows:
 
 ### Programmatic shape definitions.
@@ -154,6 +154,6 @@ const files = [
 urdx.writeOutput(files);
 ```
 
-Then run `npm run build`. Voila! Your robot will show up in a folder called `urdf`.
+Then run `npm run build`. Voilà! Your robot will show up in the `urdf` folder.
 
-Now look in the folder of this project called `urdx` to see some examples!
+Look in the folder of this project called `urdx` to see some more detailed examples!
