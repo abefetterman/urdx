@@ -109,7 +109,7 @@ Create a new folder and add this as `package.json`:
 
 ```javascript
 {
-  "name": "My Super Robot",
+  "name": "my-super-robot",
   "version": "1.0.0",
   "description": "My Super Robot Definition",
   "scripts": {
@@ -131,7 +131,8 @@ Create a new folder and add this as `package.json`:
 }
 ```
 
-Then run `npm i`. Create a directory called `urdx` and add `urdx/index.js`:
+Then run `npm i`. Create directories called `urdx` and `urdf`, and
+then add `urdx/index.js`:
 
 ```javascript
 import urdx, { Cylinder } from 'urdx';
@@ -154,3 +155,5 @@ urdx.writeOutput(files);
 ```
 
 Then run `npm run build`. Voila! Your robot will show up in a folder called `urdf`.
+
+Now look in the folder of this project called `urdx` to see some examples!
