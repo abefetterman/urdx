@@ -1,6 +1,6 @@
 {
   "name": "urdx",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -19,11 +19,12 @@
   },
   "homepage": "https://github.com/abefetterman/urdx#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-env": "^1.6.1"
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-transform-react-jsx": "^7.1.0",
+    "@babel/preset-env": "^7.1.0"
   },
   "dependencies": {
-    "xmlbuilder": "^9.0.4"
+    "xmlbuilder": "^10.1.1"
   }
 }

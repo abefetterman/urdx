@@ -101,7 +101,7 @@ class Controller extends Component {
   render() {
     return (
       <gazebo>
-        <gazebo_ros_kobuki namespace="controller" name="kobuki_controller" plugin="libgazebo_ros_kobuki.so">
+        <controller:gazebo_ros_kobuki name="kobuki_controller" plugin="libgazebo_ros_kobuki.so">
           <left_wheel_joint_name>left_wheel_joint</left_wheel_joint_name>
           <right_wheel_joint_name>right_wheel_joint</right_wheel_joint_name>
           <wheel_separation>.230</wheel_separation>
@@ -114,7 +114,7 @@ class Controller extends Component {
           <cliff_detection_threshold>0.04</cliff_detection_threshold>
           <bumper_name>bumpers</bumper_name>
           <base_collision_model_link>base_link</base_collision_model_link>
-        </gazebo_ros_kobuki>
+        </controller:gazebo_ros_kobuki>
       </gazebo>
     )
   }

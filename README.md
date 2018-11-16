@@ -75,7 +75,7 @@ becomes:
 
 ### Mixed XML.
 
-Most valid XML is valid JSX.  So you can write:
+Valid XML is valid JSX.  So you can write:
 
 ```jsx
 <Cylinder name="base" length={0.1} radius={0.1} />
@@ -92,17 +92,6 @@ Most valid XML is valid JSX.  So you can write:
 </joint>
 ```
 
-An exception is namespaces, which are not currently supported by the babel
-plugin used. As a workaround, we use a namespace attribute:
-
-```jsx
-<macro namespace="xacro" name="my_xacro_macro">
-  <Cylinder name="base" length={0.1} radius={0.1} />
-</macro>
-```
-
-The `<macro>` tag will be transformed to `<xacro:macro>` before being written as XML.
-
 ## Get started
 
 Create a new folder and add this as `package.json`:
@@ -117,16 +106,17 @@ Create a new folder and add this as `package.json`:
     "postbuild": "node .urdx/index.js"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-env": "^1.6.1"
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-transform-react-jsx": "^7.1.0",
+    "@babel/preset-env": "^7.1.0"
   },
   "dependencies": {
     "urdx": "latest"
   },
   "babel": {
-    "plugins": [["transform-react-jsx", {"pragma": "urdx.createElement"}]],
-    "presets": ["env"]
+    "plugins": [["@babel/plugin-transform-react-jsx", {"pragma": "urdx.createElement", "throwIfNamespace": false}]],
+    "presets": ["@babel/env"]
   }
 }
 ```

@@ -1,4 +1,4 @@
 {
-  "plugins": [["transform-react-jsx", {"pragma": "urdx.createElement"}]],
-  "presets": ["env"]
+  "plugins": [["@babel/plugin-transform-react-jsx", {"pragma": "urdx.createElement", "throwIfNamespace": false}]],
+  "presets": ["@babel/env"]
 }

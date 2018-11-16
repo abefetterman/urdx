@@ -8,7 +8,7 @@ class Gyro extends LinkComponent {
     const { name } = attributes;
     return (
       <gazebo>
-        <gazebo_ros_imu namespace="controller" name="imu_controller" plugin="libgazebo_ros_imu.so">
+        <controller:gazebo_ros_imu name="imu_controller" plugin="libgazebo_ros_imu.so">
           <alwaysOn>true</alwaysOn>
           <updateRate>50</updateRate>
           <bodyName>{`${name}_link`}</bodyName>
@@ -17,7 +17,7 @@ class Gyro extends LinkComponent {
           <xyzOffsets>0 0 0</xyzOffsets>
           <rpyOffsets>0 0 0</rpyOffsets>
           <position namespace="interface" name={`${name}_link`} />
-        </gazebo_ros_imu>
+        </controller:gazebo_ros_imu>
       </gazebo>
     )
   }

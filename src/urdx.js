@@ -55,7 +55,9 @@ const Urdx = {
 			if (!(files && typeof files.map === 'function')) return null;
 			return files.map((file) => {
 				const renderedRobot = urdx.renderRobot(file.robot, file.args);
-				fs.writeFile(`./urdf/${file.filename}`, renderedRobot);
+				return fs.writeFile(`./urdf/${file.filename}`, renderedRobot, error => {
+					if (error) console.log('write failed!');
+				});
 			});
 		}
 };
